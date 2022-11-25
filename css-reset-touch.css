@@ -1,0 +1,14 @@
+:root{
+    --primary-background: #222;
+    --secondary-background: #333;
+    --primary-color: #aaa;
+}
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    background-color: var(--primary-background);
+    color: var(--primary-color);
+}
