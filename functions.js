@@ -46,7 +46,31 @@ class Display {
 
         list.appendChild(row);
     }
+
+    static clearFields() {
+        document.querySelector('#title').value = '';
+        document.querySelector('#author').value = '';
+        document.querySelector('#pages').value = '';
+        document.querySelector('#read').checked = false;
+    }
 }
 
 // Display to list
 document.addEventListener('DOMContentLoaded', Display.displayBooks);
+
+// Getting form values
+document.querySelector('#form').addEventListener('submit', () => {
+    const title = document.querySelector('#title').value;
+    const author = document.querySelector('#author').value;
+    const pages = document.querySelector('#pages').value;
+    const read = document.querySelector('#read').checked;
+    
+    // create new object book
+    const book = new Book(title, author, pages, read);
+    console.log(book);
+    // Add to list
+    Display.addBookToList(book);
+
+    // Clear fields
+    Display.clearFields();
+});
