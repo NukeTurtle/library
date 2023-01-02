@@ -1,49 +1,52 @@
-
-var books = [{
-    bookTitle: "Harry Potter and the Goblet of Fire",
-    author: "J. K. Rowling",
-    numberOfPages: "464",
-    bookRead: false,
-    releaseYear: "2019"
-},
-{
-    bookTitle: "Harry Potter and the Deathly Hallows",
-    author: "J. K. Rowling",
-    numberOfPages: "759",
-    bookRead: true,
-    releaseYear: "2007"
-}];
-
-
-function Book() {
-    // the constructor...
+// Book class
+class Book {
+    constructor(title, author, pages, read) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
+    }
 }
 
-function addBookToLibrary() {
-    // do stuff here
-} 
+// Display books, tasks handle
+class Display {
+    static displayBooks() {
+        const StoredBooks = [
+            {
+                title: "Harry Potter and the Goblet of Fire",
+                author: "J. K. Rowling",
+                pages: 464,
+                read: false
+            },
+            {
+                title: "Harry Potter and the Deathly Hallows",
+                author: "J. K. Rowling",
+                pages: 759,
+                read: true
+            }
+        ];
 
-const myLibrary  = [];
+        const books = StoredBooks;
 
-const myBook = {
-    bookId: "",
-    bookTitle: "",
-    author: "",
-    numberOfPages: "",
-    bookRead: false,
-    releaseYear: ""
+        books.forEach((book) => Display.addBookToList(book));
+    }
+
+    static addBookToList(book) {
+        const list = document.querySelector('#book-list');
+
+        const row = document.createElement('tr');
+
+        row.innerHTML = `
+        <td>${book.title}</td>
+        <td>${book.author}</td>
+        <td>${book.pages}</td>
+        <td>${book.read}</td>
+        <td><a href="#" class="btn btn-danger btn-sm delete">X</a></td>
+        `;
+
+        list.appendChild(row);
+    }
 }
 
-
-function addBook(bookId, bookTitle, author, numberOfPages, releaseYear) {
-    var newBook = new Object()
-    newBook.bookId = bookId,
-    newBook.bookTitle = bookTitle,
-    newBook.author = author,
-    newBook.numberOfPages = numberOfPages,
-    newBook.bookRead = false,
-    newBook.releaseYear = releaseYear
-    myLibrary.push(newBook)
-    console.log("New Book: ", myLibrary)
-    localStorage.setItem("Books", JSON.stringify(myLibrary))
-}
+// Display to list
+document.addEventListener('DOMContentLoaded', Display.displayBooks);
