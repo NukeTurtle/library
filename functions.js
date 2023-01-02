@@ -11,22 +11,7 @@ class Book {
 // Display books, tasks handle
 class Display {
     static displayBooks() {
-        const StoredBooks = [
-            {
-                title: "Harry Potter and the Goblet of Fire",
-                author: "J. K. Rowling",
-                pages: 464,
-                read: false
-            },
-            {
-                title: "Harry Potter and the Deathly Hallows",
-                author: "J. K. Rowling",
-                pages: 759,
-                read: true
-            }
-        ];
-
-        const books = StoredBooks;
+        const books = Store.getBooks();
 
         books.forEach((book) => Display.addBookToList(book));
     }
@@ -73,6 +58,40 @@ class Display {
     }
 }
 
+// Local Storage handling
+class Store {
+    static getBooks() {
+        let books;
+        if(localStorage.getItem('books') === null) {
+            books = [];
+        } else {
+            books = JSON.parse(localStorage.getItem('books'));
+        }
+
+        return books;
+    }
+
+    static addBook(book) {
+        const books = Store.getBooks();
+        
+        books.push(book);
+
+        localStorage.setItem('books', JSON.stringify(books));
+    }
+
+    static removeBook(id) {
+        const books = Store.getBooks();
+
+        books.forEach((book, index) => {
+            if(book.id === id) {
+                books.splice(index, 1);
+            }
+        });
+
+        localStorage.setItem('books', JSON.stringify(books));
+    }
+}
+
 // Display to list
 document.addEventListener('DOMContentLoaded', Display.displayBooks);
 
@@ -94,6 +113,9 @@ document.querySelector('#form').addEventListener('submit', () => {
         // Add to list
         Display.addBookToList(book);
 
+        // Add Book to Storage
+        Store.addBook(book);
+
         // Success message
         Display.showAlert('Book Added', 'success');
 
@@ -104,7 +126,11 @@ document.querySelector('#form').addEventListener('submit', () => {
 
 // Feature: remove button
 document.querySelector('#book-list').addEventListener('click', (e) => {
+    // Remove book from Display
     Display.deleteBook(e.target);
+
+    // Remove book from local storage
+    Store.removeBook();
 
     // Success message
     Display.showAlert('Book Removed', 'success');
