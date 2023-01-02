@@ -56,7 +56,7 @@ class Display {
         document.querySelector('#pages').value = '';
         document.querySelector('#read').checked = false;
     }
-    
+}
 class Book {
     constructor(bookId, bookTitle, bookAuthor, bookPages, bookRead, bookYear) {
         this.id = bookId,
@@ -167,7 +167,7 @@ document.querySelector('#book-list').addEventListener('click', (e) => {
     // Success message
     Display.showAlert('Book Removed', 'success');
 });
-=======
+
 // TODO:
 // -store myLibrary in local Storage
 // -check why Book is always added in console
