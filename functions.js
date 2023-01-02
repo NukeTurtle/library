@@ -53,6 +53,18 @@ class Display {
         }
     }
 
+    static showAlert(message, className) {
+        const div = document.createElement('div');
+        div.className = `alert alert-${className}`;
+        div.appendChild(document.createTextNode(message));
+        const container = document.querySelector('.form-container');
+        const form = document.querySelector('#form');
+        container.insertBefore(div, form);
+
+        // Vanish in 3 sec.
+        setTimeout(() => document.querySelector('.alert').remove(), 3000);
+    }
+
     static clearFields() {
         document.querySelector('#title').value = '';
         document.querySelector('#author').value = '';
@@ -71,14 +83,19 @@ document.querySelector('#form').addEventListener('submit', () => {
     const pages = document.querySelector('#pages').value;
     const read = document.querySelector('#read').checked;
     
-    // create new object book
-    const book = new Book(title, author, pages, read);
-    console.log(book);
-    // Add to list
-    Display.addBookToList(book);
+    // Form validation
+    if (title === '' || author === '' || pages === '') {
+        Display.showAlert('Please fill in all fields!', 'danger');
+    } else {
+        // create new object book
+        const book = new Book(title, author, pages, read);
+        console.log(book);
+        // Add to list
+        Display.addBookToList(book);
 
-    // Clear fields
-    Display.clearFields();
+        // Clear fields
+        Display.clearFields();
+    }
 });
 
 // Feature: remove button
