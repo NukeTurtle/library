@@ -90,8 +90,12 @@ document.querySelector('#form').addEventListener('submit', () => {
         // create new object book
         const book = new Book(title, author, pages, read);
         console.log(book);
+        
         // Add to list
         Display.addBookToList(book);
+
+        // Success message
+        Display.showAlert('Book Added', 'success');
 
         // Clear fields
         Display.clearFields();
@@ -100,5 +104,8 @@ document.querySelector('#form').addEventListener('submit', () => {
 
 // Feature: remove button
 document.querySelector('#book-list').addEventListener('click', (e) => {
-    Display.deleteBook(e.target)
+    Display.deleteBook(e.target);
+
+    // Success message
+    Display.showAlert('Book Removed', 'success');
 });
