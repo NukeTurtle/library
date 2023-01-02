@@ -47,6 +47,12 @@ class Display {
         list.appendChild(row);
     }
 
+    static deleteBook(el) {
+        if (el.classList.contains('delete')) {
+            el.parentElement.parentElement.remove();
+        }
+    }
+
     static clearFields() {
         document.querySelector('#title').value = '';
         document.querySelector('#author').value = '';
@@ -73,4 +79,9 @@ document.querySelector('#form').addEventListener('submit', () => {
 
     // Clear fields
     Display.clearFields();
+});
+
+// Feature: remove button
+document.querySelector('#book-list').addEventListener('click', (e) => {
+    Display.deleteBook(e.target)
 });
